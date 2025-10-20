@@ -1,0 +1,246 @@
+<div class="grid grid-cols-2 gap-2 justify-between chat-box">
+  <mat-card>
+
+    <mat-card-header
+      class="bg-[#CAD0D2] flex flex-row justify-start w-full items-center" style="background-color: #2196F3;">
+      <!-- <mat-card-title class="font-semibold text-2xl">Jack </mat-card-title> -->
+      <div
+        class="px-4 flex-auto flex items-center"
+      >
+        <form [formGroup]="translateForm">
+          <!-- <input
+                                                            class="px-4 py-2 border-0 outline-none bg-transparent select-language-input"
+                                                            placeholder="Please select a language"
+            formControlName="sourceLanguageSelect"
+            type="text"
+            [matAutocomplete]="sourceLanguage"
+          />
+          <mat-autocomplete
+            #sourceLanguage="matAutocomplete"
+            [displayWith]="displayFn"
+          >
+            <mat-option
+              *ngFor="let option of sourceLanguageOptions$ | async"
+              [value]="option"
+              >{{ option.name }}</mat-option
+            >
+          </mat-autocomplete> -->
+          <mat-form-field>
+            <mat-select formControlName="sourceLanguageSelect" placeholder="Select language">
+              <mat-option *ngFor="let option of sttLanguages" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="h-[31rem] py-2 mt-2" style="overflow-y: auto;">
+      <div
+        class="flex flex-row gap-1 items-center"
+        *ngFor="let message of conversationCardOne"
+        [ngClass]="{ 'justify-end': message.user === 'sender', 'justify-start': message.user === 'receiver'}"
+      >
+        <app-message
+          [chat]="'voice'"
+          [audioUrl]="message.text"
+          [user]="message.user"
+          [timeStamp]="message.timeStamp"
+        ></app-message>
+      </div>      
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-footer class="h-12 my-2 mx-2 justify-between">
+      <div class="flex-row flex justify-between gap-2 w-full items-center">
+        <div class="px-2 max-w-[500px] flex-auto flex items-center">
+          <span
+            *ngIf="
+              showMicButtonOne === true &&
+              showAudioPlayerOne === false &&
+              isLoading === false
+            "
+            class="text-xs font-light text-gray-400"
+          >
+            Click the mic to start recording
+          </span>
+          <span
+            *ngIf="
+              showMicButtonOne === false &&
+              showAudioPlayerOne === false &&
+              isLoading === false
+            "
+            class="text-xs font-light text-gray-400"
+          >
+            Recording...</span
+          >
+          <span *ngIf="showAudioPlayerOne === true && isLoading === false">
+            <audio #audioPlayerOne controls></audio>
+          </span>
+          <span *ngIf="isLoading === true">
+            <mat-progress-bar mode="buffer" colco="primary"></mat-progress-bar>
+          </span>
+        </div>
+
+        <button
+          mat-icon-button
+          *ngIf="
+            showMicButtonOne === true &&
+            showAudioPlayerOne === false &&
+            isLoading === false
+          "
+          color="primary"
+          (click)="startMessageRecordingCardOne()"
+        >
+          <mat-icon>mic</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="stopMessageRecordingCardOne()"
+          *ngIf="
+            showMicButtonOne === false &&
+            showAudioPlayerOne === false &&
+            isLoading === false
+          "
+        >
+          <mat-icon>stop_circle</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="sendMessageRecordingCardOne()"
+          *ngIf="showAudioPlayerOne === true && isLoading === false"
+        >
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-header
+      class="bg-[#CAD0D2] flex flex-row justify-start w-full items-center" style="background-color: #2196F3;">
+      <!-- <mat-card-title class="font-semibold text-2xl"> Jill </mat-card-title> -->
+      <div
+        class="px-4 flex-auto flex items-center"
+      >
+        <form [formGroup]="translateForm">
+          <!-- <input
+                                                            class="px-4 py-2 border-0 outline-none bg-transparent select-language-input"
+                                                            placeholder="Please select a language"
+            formControlName="targetLanguageSelect"
+            type="text"
+            [matAutocomplete]="targetLanguage"
+          />
+          <mat-autocomplete
+            #targetLanguage="matAutocomplete"
+            [displayWith]="displayFn"
+          >
+            <mat-option
+              *ngFor="let option of targetLanguageOptions$ | async"
+              [value]="option"
+              >{{ option.name }}</mat-option
+            >
+          </mat-autocomplete> -->
+          <mat-form-field>
+            <mat-select formControlName="targetLanguageSelect" placeholder="Select language">
+              <mat-option *ngFor="let option of sttLanguages" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content class="h-[31rem] py-2 mt-2" style="overflow-y: auto;">
+      <div
+        class="flex flex-row gap-1 items-center"
+        *ngFor="let message of conversationCardTwo"
+        [ngClass]="{ 'justify-end': message.user === 'sender', 'justify-start': message.user === 'receiver'}"
+      >
+        <app-message
+          [chat]="'voice'"
+          [audioUrl]="message.text"
+          [user]="message.user"
+          [timeStamp]="message.timeStamp"
+        ></app-message>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-footer class="h-12 my-2 mx-2 justify-between">
+      <div class="flex-row flex justify-between gap-2 w-full items-center">
+        <div class="px-2 max-w-[500px] flex-auto flex items-center">
+          <span
+            *ngIf="
+              showMicButtonTwo === true &&
+              showAudioPlayerTwo === false &&
+              isLoadingTwo === false
+            "
+            class="text-xs font-light text-gray-400"
+          >
+            Click the mic to start recording
+          </span>
+          <span
+            *ngIf="
+              showMicButtonTwo === false &&
+              showAudioPlayerTwo === false &&
+              isLoadingTwo === false
+            "
+            class="text-xs font-light text-gray-400"
+          >
+            Recording...</span
+          >
+          <span *ngIf="showAudioPlayerTwo === true && isLoadingTwo === false">
+            <audio #audioPlayerTwo controls></audio>
+          </span>
+          <span *ngIf="isLoadingTwo === true">
+            <mat-progress-bar mode="buffer" colco="primary"></mat-progress-bar>
+          </span>
+        </div>
+
+        <button
+          mat-icon-button
+          *ngIf="
+            showMicButtonTwo === true &&
+            showAudioPlayerTwo === false &&
+            isLoadingTwo === false
+          "
+          color="primary"
+          (click)="startMessageRecordingCardTwo()"
+        >
+          <mat-icon>mic</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="stopMessageRecordingCardTwo()"
+          *ngIf="
+            showMicButtonTwo === false &&
+            showAudioPlayerTwo === false &&
+            isLoadingTwo === false
+          "
+        >
+          <mat-icon>stop_circle</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          (click)="sendMessageRecordingCardTwo()"
+          *ngIf="showAudioPlayerTwo === true && isLoadingTwo === false"
+        >
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </mat-card-footer>
+  </mat-card>
+</div>

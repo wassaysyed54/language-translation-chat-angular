@@ -1,0 +1,159 @@
+<div class="grid grid-cols-2 gap-2 justify-between chat-box">
+  <mat-card>
+    <mat-card-header
+      class="bg-[#BFC9D0] flex flex-row justify-start w-full items-center" style="background-color: #2196F3;">
+      <!-- <mat-card-title class="font-semibold text-2xl">Jack </mat-card-title> -->
+      <div
+        class="px-4 flex-auto flex items-center"
+      >
+        <form [formGroup]="translateForm">
+          <!-- <input
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          class="px-4 py-2 border-0 outline-none bg-transparent select-language-input"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          placeholder="Please select a language"
+            formControlName="sourceLanguageSelect"
+            type="text"
+            [matAutocomplete]="sourceLanguage"
+          />
+          <mat-autocomplete
+            #sourceLanguage="matAutocomplete"
+            [displayWith]="displayFn"
+          > -->
+            <!-- <mat-option
+              *ngFor="let option of sourceLanguageOptions$ | async"
+              [value]="option"
+              >{{ option.name }}</mat-option
+            > 
+          </mat-autocomplete>
+          -->
+          <mat-form-field>
+            <mat-select formControlName="sourceLanguageSelect" placeholder="Select language">
+              <mat-option *ngFor="let option of sttLanguages" [value]="option">
+                {{option.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="h-[31rem] py-2 mt-2" style="overflow-y: auto;">
+      <div
+        class="flex flex-row gap-1 items-center"
+        *ngFor="let message of conversationCardOne"
+        [ngClass]="{ 'justify-end': message.user === 'sender', 'justify-start': message.user === 'receiver'}"
+      >
+        <app-message
+          [chat]="'text'"
+          [message]="message.text"
+          [user]="message.user"
+          [timeStamp]="message.timeStamp"
+        ></app-message>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-footer class=" h-12 my-2 mx-2 justify-between">
+      <div class="flex-row flex gap-2 w-full items-center px-1">
+        <form [formGroup]="translateForm" class="w-full">
+          <div
+            class="bg-white rounded-full px-4 max-w-full flex-auto flex items-center border border-gray-300"
+          >
+            <input
+              class="px-4 py-2 border-0 outline-none w-full bg-transparent"
+              placeholder="Text Message"
+              formControlName="textToTranslate" (keydown.enter)="sendMessageCardOne()"
+            />
+          </div>
+        </form>
+
+        <button mat-icon-button color="primary" [disabled]="translateForm.get('textToTranslate')?.value == ''"
+          (click)="sendMessageCardOne()">
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </mat-card-footer>
+
+  </mat-card>
+
+<mat-card>
+    <mat-card-header
+      class="bg-[#BFC9D0] flex flex-row justify-start w-full items-center" style="background-color: #2196F3;">
+      <!-- <mat-card-title class="font-semibold text-2xl"> Jill </mat-card-title> -->
+      <div
+        class=" px-4 flex-auto flex items-center "
+      >
+      <form [formGroup]="translateForm">
+        <!-- <input
+                                                                                                                                                                                                                                                                                                                                                                                                  class="px-4 py-2 border-0 outline-none bg-transparent select-language-input"
+                                                                                                                                                                                                                                                                                                                                                                                                  placeholder="Please select a language"
+          formControlName="targetLanguageSelect"
+          type="text"
+          [matAutocomplete]="targetLanguage"
+        />
+        <mat-autocomplete
+          #targetLanguage="matAutocomplete"
+          [displayWith]="displayFn"
+        >
+          <mat-option
+            *ngFor="let option of targetLanguageOptions$ | async"
+            [value]="option"
+            >{{ option.name }}</mat-option
+          >
+        </mat-autocomplete> -->
+        <mat-form-field>
+          <mat-select formControlName="targetLanguageSelect" placeholder="Select language">
+            <mat-option *ngFor="let option of sttLanguages" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+      </div>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+<mat-card-content class="h-[31rem] py-2 mt-2" style="overflow-y: auto;">
+      <div
+        class="flex flex-row gap-1 items-center"
+        *ngFor="let message of conversationCardTwo"
+        [ngClass]="{ 'justify-end': message.user === 'sender', 'justify-start': message.user === 'receiver'}"
+      >
+        <app-message
+          [chat]="'text'"
+          [message]="message.text"
+          [user]="message.user"
+          [timeStamp]="message.timeStamp"
+        ></app-message>
+      </div>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-footer class="h-12 my-2 mx-2 justify-between">
+      <div class="flex-row flex gap-2 w-full items-center px-1">
+        <form [formGroup]="translateForm" class="w-full">
+          <div
+            class="bg-white rounded-full px-4 max-w-full flex-auto flex items-center border border-gray-300"
+          >
+            <input
+              class="px-4 py-2 border-0 outline-none w-full bg-transparent"
+              placeholder="Text Message"
+              formControlName="ttt"  (keydown.enter)="sendMessageCardTwo()"
+            />
+          </div>
+        </form>
+
+        <button
+          mat-icon-button
+          color="primary" [disabled]="translateForm.get('ttt')?.value == ''"
+          (click)="sendMessageCardTwo()"
+        >
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+    </mat-card-footer>
+
+  </mat-card>
+</div>

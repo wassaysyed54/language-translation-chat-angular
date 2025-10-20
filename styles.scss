@@ -1,0 +1,37 @@
+@use '@angular/material' as mat;
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@include mat.core();
+
+$ui-primary: mat.define-palette(mat.$blue-palette, 700);
+$ui-accent: mat.define-palette(mat.$blue-palette, A200, A100, A400);
+$ui-warn: mat.define-palette(mat.$red-palette);
+$ui-typography: mat.define-typography-config($font-family: 'Montserrat',);
+
+$ui-theme: mat.define-light-theme((color: (primary: $ui-primary,
+        accent: $ui-accent,
+        warn: $ui-warn,
+), typography:$ui-typography));
+
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right-style: hidden;
+}
+
+@include mat.all-component-themes($ui-theme);
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+
+
+html,
+body {
+  overscroll-behavior-x: auto;
+  font-family: 'Montserrat', sans-serif !important;
+  background-color: #f2f2f2;
+}
+
+:host ::ng-deep .cdk-overlay-pane {
+  left: 48px !important;
+}

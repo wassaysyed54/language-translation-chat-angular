@@ -1,0 +1,24 @@
+.active-button {
+    background-color: #2196F3;
+    border-radius: 0;
+    color: white !important;
+    border: 1px solid;
+}
+.header {
+    background-color: #2196F3;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 12;
+}
+
+.btn-language-container {
+    margin-top: 23px;
+}
+
+.btn-language {
+    border: 1px solid;
+    padding: 20px;
+    border-radius: 0;
+    border-color: #2196f3;
+}
